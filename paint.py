@@ -1,6 +1,7 @@
 from random import random
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse, Line
 
 class MyPaintWidget(Widget):
@@ -21,7 +22,17 @@ class MyPaintWidget(Widget):
 
 class MyPaintApp(App):
 	def build(self):
-		return MyPaintWidget()
+		self.parent = Widget()
+		self.painter = MyPaintWidget()
+		self.clear_button = Button(text="Clear")
+		self.parent.add_widget(self.painter)
+		self.parent.add_widget(self.clear_button)
+		self.clear_button.bind(on_release=self.clear_canvas_action)
+		return self.parent
+
+	def clear_canvas_action(self, obj):
+		self.painter.canvas.clear()
+
 
 
 if __name__ == "__main__":
