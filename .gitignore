@@ -1,0 +1,3 @@
+# .gitignore for kivy_tutorials
+
+*.pyc
