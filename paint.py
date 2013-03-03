@@ -1,11 +1,23 @@
+from random import random
 from kivy.app import App
 from kivy.uix.widget import Widget
-
+from kivy.graphics import Color, Ellipse, Line
 
 class MyPaintWidget(Widget):
 	def on_touch_down(self, touch):
-		print touch
+		color = (random(),random(),random())
+		with self.canvas:
+			self.yellow_circle(touch, *color)
 
+	def on_touch_move(self, touch):
+		touch.ud['line'].points += [touch.x, touch.y]
+
+	def yellow_circle(self, touch, *some_color):
+			Color(*some_color)
+			# Color(1,1,0)
+			d = 30.
+			Ellipse(pos=(touch.x - d / 2, touch.y - d / 2), size=(d,d))
+			touch.ud['line'] = Line(points=(touch.x,touch.y))
 
 class MyPaintApp(App):
 	def build(self):
